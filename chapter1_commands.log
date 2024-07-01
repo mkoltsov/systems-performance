@@ -1,0 +1,107 @@
+vmstat
+procs -----------memory---------- ---swap-- -----io---- -system-- -------cpu-------
+ r  b   swpd   free   buff  cache   si   so    bi    bo   in   cs us sy id wa st gu
+ 0  0      0 7054816  10368 461176    0    0  2646   981 1617    2  0  0 99  0  0  0
+root@50f78b6dbcf6:/# vmstat 1 5
+procs -----------memory---------- ---swap-- -----io---- -system-- -------cpu-------
+ r  b   swpd   free   buff  cache   si   so    bi    bo   in   cs us sy id wa st gu
+ 0  0      0 7044852  10448 461244    0    0  2391   889 1546    2  0  0 99  0  0  0
+ 0  0      0 7044852  10448 461244    0    0     0     0 1276 2036  0  0 100  0  0  0
+ 0  0      0 7044852  10448 461244    0    0     0     0 1268 1971  0  0 99  0  0  0
+ 0  0      0 7046760  10456 461252    0    0     0    20 1837 2900  0  0 99  0  0  0
+ 0  0      0 7046760  10456 461256    0    0     0     0  459  670  0  0 100  0  0  0
+
+
+ execsnoop
+
+ iperf -c google.com -i 1 -t 10
+
+ Table 1.1 Linux 60-second analysis checklist
+
+#
+
+Tool
+
+Check
+
+Section
+
+1
+
+uptime
+
+Load averages to identify if load is increasing or decreasing (compare 1-, 5-, and 15-minute averages).
+
+6.6.1
+
+2
+
+dmesg -T | tail
+
+Kernel errors including OOM events.
+
+7.5.11
+
+3
+
+vmstat -SM 1
+
+System-wide statistics: run queue length, swapping, overall CPU usage.
+
+7.5.1
+
+4
+
+mpstat -P ALL 1
+
+Per-CPU balance: a single busy CPU can indicate poor thread scaling.
+
+6.6.3
+
+5
+
+pidstat 1
+
+Per-process CPU usage: identify unexpected CPU consumers, and user/system CPU time for each process.
+
+6.6.7
+
+6
+
+iostat -sxz 1
+
+Disk I/O statistics: IOPS and throughput, average wait time, percent busy.
+
+9.6.1
+
+7
+
+free -m
+
+Memory usage including the file system cache.
+
+8.6.2
+
+8
+
+sar -n DEV 1
+
+Network device I/O: packets and throughput.
+
+10.6.6
+
+9
+
+sar -n TCP,ETCP 1
+
+TCP statistics: connection rates, retransmits.
+
+10.6.6
+
+10
+
+top
+
+Check overview.
+
+6.6.6
